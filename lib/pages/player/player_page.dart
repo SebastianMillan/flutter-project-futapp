@@ -43,9 +43,10 @@ Widget _playerList() {
             return ListTile(
               title: Text(state.players[index].name!),
               subtitle: Text(state.players[index].position!),
-              /*leading: CircleAvatar(
-                /*backgroundImage: NetworkImage(state.players[index].id!),*/
-              ),*/
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    'https://futdb.app/api/players/${state.players[index].id!}/image'),
+              ),
             );
           },
         );
