@@ -29,8 +29,15 @@ class PlayerListResponse {
   ///
   /// Parses the string and returns the resulting Json object as [PlayerListResponse].
   factory PlayerListResponse.fromJson(String data) {
-    return PlayerListResponse.fromMap(
-        json.decode(data) as Map<String, dynamic>);
+    Map<String, dynamic> jsonMap = json.decode(data);
+    return PlayerListResponse(
+      pagination: jsonMap['pagination'] == null
+          ? null
+          : Pagination.fromMap(jsonMap['pagination'] as Map<String, dynamic>),
+      items: (jsonMap['items'] as List<dynamic>?)
+          ?.map((e) => Player.fromMap(e as Map<String, dynamic>))
+          .toList(),
+    );
   }
 
   /// `dart:convert`
