@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:futapp/models/player_list_response/item.dart';
+import 'package:futapp/models/player_list_response/player_list_response.dart';
 import 'package:futapp/repositories/player/player_repository.dart';
 import 'package:meta/meta.dart';
 

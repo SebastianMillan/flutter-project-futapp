@@ -41,7 +41,6 @@ Widget _playerList() {
               state.players.length, // Corrección: 'length' en lugar de 'lenght'
           itemBuilder: (context, index) {
             return ListTile(
-              textColor: Colors.white,
               title: Text(state.players[index].name!),
               subtitle: Text(state.players[index].position!),
               /*leading: CircleAvatar(
