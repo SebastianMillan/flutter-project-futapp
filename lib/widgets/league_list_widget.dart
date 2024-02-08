@@ -80,7 +80,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget> {
                   child: Text(
                     league.name!,
                     style: const TextStyle(
-                        fontSize: 25,
+                        fontSize: 20,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),

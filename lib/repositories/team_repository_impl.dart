@@ -9,14 +9,16 @@ class TeamRepositoryImpl extends TeamRepository {
   final Client _httpClient = Client();
 
   @override
-  Future<List<Team>> fetchTeamList() async {
+  Future<List<Team>> fetchTeamList(int page) async {
     final response = await _httpClient
-        .get(Uri.parse('https://futdb.app/api/clubs'), headers: {
+        .get(Uri.parse('https://futdb.app/api/clubs?page=$page'), headers: {
       'X-AUTH-TOKEN': '087122e6-2e9d-4b68-a6b7-6349032fc8ea',
     });
     if (response.statusCode == 200) {
-      return TeamListResponse.fromJson(json.decode(response.body)).items!;
+      final List<dynamic> data = json.decode(response.body)['items'];
+      return data.map((e) => Team.fromJson(e)).toList();
     } else {
+      return 
       throw Exception('Failed to load the Teams');
     }
   }

@@ -25,7 +25,8 @@ class _TeamListWidgetState extends State<TeamListWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TeamBloc(teamRepository)..add(TeamListFetchEvent()),
+      create: (context) =>
+          TeamBloc(teamRepository)..add(TeamListFetchEvent(50)),
       child: Center(child: _teamList()),
     );
   }
@@ -39,6 +40,7 @@ class _TeamListWidgetState extends State<TeamListWidget> {
             if (state.teamList[index].league == widget.idLeague) {
               return _createCardTeam(state.teamList[index]);
             }
+            return Container();
           },
         );
       } else if (state is TeamListFetchError) {
@@ -55,10 +57,30 @@ class _TeamListWidgetState extends State<TeamListWidget> {
       color: const Color.fromARGB(255, 24, 24, 24),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(
-          team.name!,
-          style: const TextStyle(
-              fontSize: 35, color: Colors.white, fontWeight: FontWeight.bold),
+        child: SizedBox(
+          height: 100,
+          child: Row(
+            children: [
+              Image(
+                  image: NetworkImage(
+                      'https://futdb.app/api/clubs/' +
+                          team.id!.toString() +
+                          '/image',
+                      headers: {
+                    'X-AUTH-TOKEN': '087122e6-2e9d-4b68-a6b7-6349032fc8ea'
+                  })),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  team.name!,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

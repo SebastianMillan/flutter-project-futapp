@@ -10,10 +10,15 @@ class TeamBloc extends Bloc<TeamEvent, TeamState> {
   final TeamRepository teamRepository;
   TeamBloc(this.teamRepository) : super(TeamInitial()) {
     on<TeamListFetchEvent>((event, emit) async {
-      try {
-        emit(TeamListFetchSuccess(await teamRepository.fetchTeamList()));
-      } catch (error) {
-        emit(TeamListFetchError(error.toString()));
+      List<Team> allTeams = [];
+      for (int page = 1; page <= event.page; page++) {
+        try {
+          final teams = await teamRepository.fetchTeamList(page);
+          allTeams.addAll(teams);
+          emit(TeamListFetchSuccess(allTeams));
+        } catch (error) {
+          emit(TeamListFetchError(error.toString()));
+        }
       }
     });
   }
