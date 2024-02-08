@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:futapp/pages/home_page.dart';
-import 'package:futapp/pages/player_page.dart';
+import 'package:futapp/pages/home/home_page.dart';
 
 void main() {
   runApp(const MyApp());

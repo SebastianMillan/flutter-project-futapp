@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:futapp/pages/league_page.dart';
-import 'package:futapp/pages/player_page.dart';
+import 'package:futapp/pages/league_pages/league_page.dart';
+import 'package:futapp/pages/player/player_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

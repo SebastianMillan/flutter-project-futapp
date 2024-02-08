@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:futapp/models/player_list_response/item.dart';
-import 'package:futapp/repositories/player_repository.dart';
+import 'package:futapp/repositories/player/player_repository.dart';
 import 'package:http/http.dart';
 
 class PlayerRepositoryImpl extends PlayerRepository {
