@@ -7,11 +7,11 @@ part 'league_event.dart';
 part 'league_state.dart';
 
 class LeagueBloc extends Bloc<LeagueEvent, LeagueState> {
-  final LeagueRepository _leagueRepository;
-  LeagueBloc(this._leagueRepository) : super(LeagueInitial()) {
-    on<LeagueEvent>((event, emit) async {
+  final LeagueRepository leagueRepository;
+  LeagueBloc(this.leagueRepository) : super(LeagueInitial()) {
+    on<LeagueListFetchEvent>((event, emit) async {
       try {
-        emit(LeagueListFetchSuccess(await _leagueRepository.fetchLeagueList()));
+        emit(LeagueListFetchSuccess(await leagueRepository.fetchLeagueList()));
       } catch (error) {
         emit(LeagueListFetchError(error.toString()));
       }

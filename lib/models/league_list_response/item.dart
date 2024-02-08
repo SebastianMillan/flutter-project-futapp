@@ -1,36 +1,24 @@
-import 'dart:convert';
-
 class League {
   int? id;
   String? name;
-  dynamic nationId;
-  dynamic gender;
+  int? nationId;
+  String? gender;
 
   League({this.id, this.name, this.nationId, this.gender});
 
-  factory League.fromMap(Map<String, dynamic> data) => League(
-        id: data['id'] as int?,
-        name: data['name'] as String?,
-        nationId: data['nationId'] as dynamic,
-        gender: data['gender'] as dynamic,
-      );
-
-  Map<String, dynamic> toMap() => {
-        'id': id,
-        'name': name,
-        'nationId': nationId,
-        'gender': gender,
-      };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Item].
-  factory League.fromJson(String data) {
-    return League.fromMap(json.decode(data) as Map<String, dynamic>);
+  League.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    nationId = json['nationId'];
+    gender = json['gender'];
   }
 
-  /// `dart:convert`
-  ///
-  /// Converts [Item] to a JSON string.
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['nationId'] = this.nationId;
+    data['gender'] = this.gender;
+    return data;
+  }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:futapp/widgets/team_list_widget.dart';
 
 class TeamPage extends StatefulWidget {
-  const TeamPage({super.key});
+  final int idLeague;
+  const TeamPage({super.key, required this.idLeague});
 
   @override
   State<TeamPage> createState() => _TeamPageState();
@@ -10,6 +12,12 @@ class TeamPage extends StatefulWidget {
 class _TeamPageState extends State<TeamPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(),
+      backgroundColor: Colors.black,
+      body: TeamListWidget(
+        idLeague: widget.idLeague,
+      ),
+    );
   }
 }
