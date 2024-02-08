@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:futapp/blocs/player/player_bloc.dart';
+import 'package:futapp/models/player_list_response/player_list_response.dart';
 import 'package:futapp/repositories/player/player_repository.dart';
 import 'package:futapp/repositories/player/player_repository_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:futapp/widgets/fut_cards.dart';
 
 class PlayerPage extends StatefulWidget {
   const PlayerPage({Key? key}) : super(key: key);
@@ -40,13 +42,13 @@ Widget _playerList() {
           itemCount:
               state.players.length, // Corrección: 'length' en lugar de 'lenght'
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(state.players[index].name!),
-              subtitle: Text(state.players[index].position!),
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://futdb.app/api/players/${state.players[index].id!}/image'),
-              ),
+            return SizedBox(
+              height: 500,
+              width: double.infinity,
+              child: PlayersCard(
+                  idPlayer: state.players[index].id!,
+                  name: state.players[index].name!,
+                  position: state.players[index].position!),
             );
           },
         );
@@ -57,3 +59,17 @@ Widget _playerList() {
     },
   );
 }
+
+/*
+ListTile(
+              title: Text(state.players[index].name!),
+              subtitle: Text(state.players[index].position!),
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    'https://futdb.app/api/players/${state.players[index].id!}/image',
+                    headers: {
+                      'X-AUTH-TOKEN': 'f0aef560-81d4-4981-b204-40bf394fd41b'
+                    }),
+              ),
+            )
+ */
