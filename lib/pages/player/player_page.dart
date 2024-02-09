@@ -28,6 +28,7 @@ class _PlayerPageState extends State<PlayerPage> {
       create: (context) =>
           PlayerBloc(playerRepository)..add(PlayerFetchPopular('players')),
       child: Scaffold(
+        backgroundColor: Colors.black,
         body: _playerList(),
       ),
     );
@@ -38,19 +39,27 @@ Widget _playerList() {
   return BlocBuilder<PlayerBloc, PlayerState>(
     builder: (context, state) {
       if (state is PlayerFetchSucess) {
-        return ListView.builder(
-          itemCount:
-              state.players.length, // Corrección: 'length' en lugar de 'lenght'
-          itemBuilder: (context, index) {
-            return SizedBox(
-              height: 500,
-              width: double.infinity,
-              child: PlayersCard(
-                  idPlayer: state.players[index].id!,
-                  name: state.players[index].name!,
-                  position: state.players[index].position!),
-            );
-          },
+        return SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: 20,
+                mainAxisExtent: 320,
+                crossAxisCount: 2, // Número de columnas (2 en este caso)
+                mainAxisSpacing: 10.0,
+              ),
+              itemCount: state.players.length,
+              itemBuilder: (context, index) {
+                final player = state.players[index];
+                return PlayersCard(
+                    idPlayer: player.id!,
+                    name: player.name!,
+                    position: player.position!);
+              },
+            ),
+          ),
         );
       } else if (state is PlayerFetchError) {
         return Center(child: Text(state.message));

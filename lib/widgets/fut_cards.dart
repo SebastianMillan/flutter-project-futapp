@@ -6,46 +6,62 @@ class PlayersCard extends StatelessWidget {
   final String position;
 
   const PlayersCard({
-    super.key,
+    Key? key,
     required this.idPlayer,
     required this.name,
     required this.position,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
+    return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        image: DecorationImage(
-          image: NetworkImage('https://futdb.app/api/players/${idPlayer}/image',
-              headers: {
-                'X-AUTH-TOKEN': 'f0aef560-81d4-4981-b204-40bf394fd41b'
-              }),
-          fit: BoxFit.cover,
-        ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            const SizedBox(width: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  position,
-                  style: const TextStyle(fontSize: 16, color: Colors.grey),
-                ),
-              ],
+      child: Stack(
+        children: [
+          Image.network(
+            'https://pbs.twimg.com/media/F1z8RggWYAAx0a7.png',
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
+              ),
             ),
-          ],
-        ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(left: 20, bottom: 80),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      position,
+                      style: const TextStyle(fontSize: 10, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
