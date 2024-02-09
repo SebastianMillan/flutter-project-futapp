@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:futapp/models/league_list_response/item.dart';
 import 'package:futapp/widgets/team_list_widget.dart';
 
 class TeamPage extends StatefulWidget {
-  final int idLeague;
-  const TeamPage({super.key, required this.idLeague});
+  final League league;
+  const TeamPage({super.key, required this.league});
 
   @override
   State<TeamPage> createState() => _TeamPageState();
@@ -12,12 +13,8 @@ class TeamPage extends StatefulWidget {
 class _TeamPageState extends State<TeamPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Colors.black,
-      body: TeamListWidget(
-        idLeague: widget.idLeague,
-      ),
+    return TeamListWidget(
+      league: widget.league,
     );
   }
 }

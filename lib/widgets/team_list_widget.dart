@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:futapp/blocs/team/team_bloc.dart';
+import 'package:futapp/models/league_list_response/item.dart';
 import 'package:futapp/models/team_list_response/item.dart';
 import 'package:futapp/repositories/team_repository.dart';
 import 'package:futapp/repositories/team_repository_impl.dart';
 
 class TeamListWidget extends StatefulWidget {
-  final int idLeague;
-  const TeamListWidget({super.key, required this.idLeague});
+  final League league;
+  const TeamListWidget({super.key, required this.league});
 
   @override
   State<TeamListWidget> createState() => _TeamListWidgetState();
@@ -24,10 +25,21 @@ class _TeamListWidgetState extends State<TeamListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          TeamBloc(teamRepository)..add(TeamListFetchEvent(50)),
-      child: Center(child: _teamList()),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: Text(
+          widget.league.name!,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+      backgroundColor: Colors.black,
+      body: BlocProvider(
+        create: (context) =>
+            TeamBloc(teamRepository)..add(TeamListFetchEvent(50)),
+        child: Center(child: _teamList()),
+      ),
     );
   }
 
@@ -37,7 +49,7 @@ class _TeamListWidgetState extends State<TeamListWidget> {
         return ListView.builder(
           itemCount: state.teamList.length,
           itemBuilder: (context, index) {
-            if (state.teamList[index].league == widget.idLeague) {
+            if (state.teamList[index].league == widget.league.id) {
               return _createCardTeam(state.teamList[index]);
             }
             return Container();

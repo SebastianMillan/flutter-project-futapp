@@ -54,7 +54,7 @@ class _LeagueListWidgetState extends State<LeagueListWidget> {
           context,
           MaterialPageRoute(
               builder: (context) => TeamPage(
-                    idLeague: league.id!,
+                    league: league,
                   )),
         );
       },

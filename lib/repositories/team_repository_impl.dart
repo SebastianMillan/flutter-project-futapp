@@ -18,8 +18,7 @@ class TeamRepositoryImpl extends TeamRepository {
       final List<dynamic> data = json.decode(response.body)['items'];
       return data.map((e) => Team.fromJson(e)).toList();
     } else {
-      return 
-      throw Exception('Failed to load the Teams');
+      return throw Exception('Failed to load the Teams');
     }
   }
 
