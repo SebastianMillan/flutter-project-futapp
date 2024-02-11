@@ -23,7 +23,10 @@ class _TeamDetailWidgetState extends State<TeamDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return BlocProvider(
+        create: (context) => TeamDetailBloc(teamRepository)
+          ..add(TeamDetailFetchEvent(widget.idTeam)),
+        child: Center(child: _teamDetail()));
   }
 
   Widget _teamDetail() {
@@ -31,17 +34,7 @@ class _TeamDetailWidgetState extends State<TeamDetailWidget> {
         builder: (context, state) {
       if (state is TeamDetailFetchSucess) {
         return Column(
-          children: [
-            Image(
-                image: NetworkImage(
-                    'https://futdb.app/api/clubs/' +
-                        state.detailTeam.id!.toString() +
-                        '/image',
-                    headers: {
-                  'X-AUTH-TOKEN': '087122e6-2e9d-4b68-a6b7-6349032fc8ea'
-                })),
-            Text(state.detailTeam.name!)
-          ],
+          children: [Text(state.detailTeam.name!)],
         );
       } else if (state is TeamDetailFetchError) {
         return Text(state.errorMessage);
