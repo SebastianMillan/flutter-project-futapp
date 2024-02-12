@@ -45,10 +45,9 @@ Widget _playerList() {
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisSpacing: 20,
+                crossAxisSpacing: 10,
                 mainAxisExtent: 320,
-                crossAxisCount: 2, // Número de columnas (2 en este caso)
-                mainAxisSpacing: 10.0,
+                crossAxisCount: 2,
               ),
               itemCount: state.players.length,
               itemBuilder: (context, index) {
@@ -56,7 +55,8 @@ Widget _playerList() {
                 return PlayersCard(
                     idPlayer: player.id!,
                     name: player.name!,
-                    position: player.position!);
+                    position: player.position!,
+                    rate: player.ratingAverage!);
               },
             ),
           ),
@@ -64,21 +64,7 @@ Widget _playerList() {
       } else if (state is PlayerFetchError) {
         return Center(child: Text(state.message));
       }
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     },
   );
 }
-
-/*
-ListTile(
-              title: Text(state.players[index].name!),
-              subtitle: Text(state.players[index].position!),
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://futdb.app/api/players/${state.players[index].id!}/image',
-                    headers: {
-                      'X-AUTH-TOKEN': 'f0aef560-81d4-4981-b204-40bf394fd41b'
-                    }),
-              ),
-            )
- */
