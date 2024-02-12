@@ -34,7 +34,12 @@ class _TeamDetailWidgetState extends State<TeamDetailWidget> {
         builder: (context, state) {
       if (state is TeamDetailFetchSucess) {
         return Column(
-          children: [Text(state.detailTeam.name!)],
+          children: [
+            Text(
+              state.detailTeam.name!,
+              style: const TextStyle(color: Colors.white),
+            )
+          ],
         );
       } else if (state is TeamDetailFetchError) {
         return Text(state.errorMessage);
