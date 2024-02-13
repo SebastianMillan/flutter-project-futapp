@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:futapp/models/team_detail_response/team_detail.dart';
 import 'package:futapp/models/team_list_response/item.dart';
 import 'package:futapp/models/team_list_response/team_list_response.dart';
 import 'package:futapp/repositories/team_repository.dart';
@@ -23,13 +24,13 @@ class TeamRepositoryImpl extends TeamRepository {
   }
 
   @override
-  Future<Team> fetchTeamDetail(int idTeam) async {
+  Future<TeamDet> fetchTeamDetail(int idTeam) async {
     final response = await _httpClient
         .get(Uri.parse('https://futdb.app/api/clubs/$idTeam'), headers: {
       'X-AUTH-TOKEN': '087122e6-2e9d-4b68-a6b7-6349032fc8ea',
     });
     if (response.statusCode == 200) {
-      return Team.fromJson(json.decode(response.body));
+      return TeamDet.fromJson(json.decode(response.body)['club']);
     } else {
       throw Exception('Failed to load this Team');
     }

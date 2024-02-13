@@ -6,7 +6,7 @@ sealed class TeamDetailState {}
 final class TeamDetailInitial extends TeamDetailState {}
 
 final class TeamDetailFetchSucess extends TeamDetailState {
-  final Team detailTeam;
+  final TeamDet detailTeam;
   TeamDetailFetchSucess(this.detailTeam);
 }
 

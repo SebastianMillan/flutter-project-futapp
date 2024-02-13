@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:futapp/models/team_detail_response/team_detail.dart';
 import 'package:futapp/models/team_list_response/item.dart';
 import 'package:futapp/repositories/team_repository.dart';
 import 'package:meta/meta.dart';
@@ -13,8 +14,10 @@ class TeamDetailBloc extends Bloc<TeamDetailEvent, TeamDetailState> {
       try {
         emit(TeamDetailFetchSucess(
             await teamRepository.fetchTeamDetail(event.idTeam)));
+        return;
       } catch (error) {
         emit(TeamDetailFetchError(error.toString()));
+        return;
       }
     });
   }

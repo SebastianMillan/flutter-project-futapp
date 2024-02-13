@@ -33,13 +33,25 @@ class _TeamDetailWidgetState extends State<TeamDetailWidget> {
     return BlocBuilder<TeamDetailBloc, TeamDetailState>(
         builder: (context, state) {
       if (state is TeamDetailFetchSucess) {
-        return Column(
-          children: [
-            Text(
-              state.detailTeam.name!,
-              style: const TextStyle(color: Colors.white),
-            )
-          ],
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Image(
+                image: NetworkImage(
+                    'https://futdb.app/api/clubs/' +
+                        state.detailTeam.id!.toString() +
+                        '/image',
+                    headers: {
+                      'X-AUTH-TOKEN': '087122e6-2e9d-4b68-a6b7-6349032fc8ea'
+                    }),
+              ),
+              Text(
+                state.detailTeam.name!,
+                style: const TextStyle(color: Colors.white, fontSize: 60),
+              )
+            ],
+          ),
         );
       } else if (state is TeamDetailFetchError) {
         return Text(state.errorMessage);
