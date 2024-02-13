@@ -28,7 +28,7 @@ class _TeamListWidgetState extends State<TeamListWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
         iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           widget.league.name!,
@@ -78,32 +78,44 @@ class _TeamListWidgetState extends State<TeamListWidget> {
       child: Card(
         margin: const EdgeInsets.all(10),
         color: const Color.fromARGB(255, 24, 24, 24),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: 100,
-            child: Row(
-              children: [
-                Image(
+        child: SizedBox(
+          height: 80,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Image(
                     image: NetworkImage(
                         'https://futdb.app/api/clubs/' +
                             team.id!.toString() +
                             '/image',
                         headers: {
-                      'X-AUTH-TOKEN': '087122e6-2e9d-4b68-a6b7-6349032fc8ea'
-                    })),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    team.name!,
-                    style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                          'X-AUTH-TOKEN': '087122e6-2e9d-4b68-a6b7-6349032fc8ea'
+                        }),
+                    width: 200,
+                    fit: BoxFit.cover,
+                    color: Color.fromARGB(132, 0, 0, 0),
+                    colorBlendMode: BlendMode.srcATop,
                   ),
                 ),
-              ],
-            ),
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      team.name!,
+                      style: const TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

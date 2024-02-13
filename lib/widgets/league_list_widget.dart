@@ -5,6 +5,7 @@ import 'package:futapp/models/league_list_response/item.dart';
 import 'package:futapp/pages/team_page.dart';
 import 'package:futapp/repositories/league_repository.dart';
 import 'package:futapp/repositories/league_repository_impl.dart';
+import 'package:shadow_overlay/shadow_overlay.dart';
 
 class LeagueListWidget extends StatefulWidget {
   const LeagueListWidget({super.key});
@@ -61,32 +62,44 @@ class _LeagueListWidgetState extends State<LeagueListWidget> {
       child: Card(
         margin: const EdgeInsets.all(10),
         color: const Color.fromARGB(255, 24, 24, 24),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: 100,
-            child: Row(
-              children: [
-                Image(
+        child: SizedBox(
+          height: 80,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Image(
                     image: NetworkImage(
                         'https://futdb.app/api/leagues/' +
                             league.id!.toString() +
                             '/image',
                         headers: {
-                      'X-AUTH-TOKEN': '087122e6-2e9d-4b68-a6b7-6349032fc8ea'
-                    })),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    league.name!,
-                    style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                          'X-AUTH-TOKEN': '087122e6-2e9d-4b68-a6b7-6349032fc8ea'
+                        }),
+                    width: 200,
+                    fit: BoxFit.cover,
+                    color: const Color.fromARGB(132, 0, 0, 0),
+                    colorBlendMode: BlendMode.srcATop,
                   ),
                 ),
-              ],
-            ),
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      league.name!,
+                      style: const TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
