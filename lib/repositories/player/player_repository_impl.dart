@@ -21,8 +21,16 @@ class PlayerRepositoryImpl extends PlayerRepository {
   }
 
   @override
-  Future<Player> fetchPlayerDetails(int playerId) {
-    // TODO: implement fetchPlayerDetails
-    throw UnimplementedError();
+  Future<Player> fetchPlayerDetails(int playerId) async {
+    final response = await _client.get(
+        Uri.parse('https://futdb.app/api/players/$playerId'),
+        headers: {'X-AUTH-TOKEN': 'f0aef560-81d4-4981-b204-40bf394fd41b'});
+    if (response.statusCode == 200) {
+      final jsonValue = jsonDecode(response.body);
+      final responsePlayer = Player.fromJson(jsonValue);
+      return responsePlayer;
+    } else {
+      throw Exception('Failed to load the Player');
+    }
   }
 }

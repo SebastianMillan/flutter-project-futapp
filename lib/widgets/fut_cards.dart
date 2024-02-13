@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:futapp/pages/player/player_detail_page.dart';
 
 class PlayersCard extends StatelessWidget {
-  final int idPlayer;
+  final int id;
   final String name;
   final String position;
   final int rate;
 
   const PlayersCard({
     Key? key,
-    required this.idPlayer,
+    required this.id,
     required this.name,
     required this.position,
     required this.rate,
@@ -19,8 +19,10 @@ class PlayersCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const PlayerDetailPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PlayerDetailPage(idPlayer: id)));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -37,7 +39,7 @@ class PlayersCard extends StatelessWidget {
             Positioned.fill(
               child: Center(
                 child: Image.network(
-                  'https://futdb.app/api/players/$idPlayer/image',
+                  'https://futdb.app/api/players/$id/image',
                   headers: const {
                     'X-AUTH-TOKEN': 'f0aef560-81d4-4981-b204-40bf394fd41b'
                   },

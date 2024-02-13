@@ -53,7 +53,7 @@ Widget _playerList() {
               itemBuilder: (context, index) {
                 final player = state.players[index];
                 return PlayersCard(
-                    idPlayer: player.id!,
+                    id: player.id!,
                     name: player.name!,
                     position: player.position!,
                     rate: player.ratingAverage!);
