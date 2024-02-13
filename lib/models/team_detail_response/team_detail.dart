@@ -1,11 +1,11 @@
-class Team {
+class TeamDet {
   int? id;
   String? name;
   int? league;
 
-  Team({this.id, this.name, this.league});
+  TeamDet({this.id, this.name, this.league});
 
-  Team.fromJson(Map<String, dynamic> json) {
+  TeamDet.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     league = json['league'];
