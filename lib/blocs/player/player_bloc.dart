@@ -21,14 +21,4 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
       emit(PlayerFetchError(e.toString()));
     }
   }
-
-  void _onPlayerFetchDetail(Player event, Emitter<PlayerState> emit) async {
-    try {
-      final playerDetail =
-          await _playerRepository.fetchPlayerDetails(event.id!);
-      emit(PlayerDetailFetchSucess(playerDetail));
-    } catch (e) {
-      emit(PlayerFetchError(e.toString()));
-    }
-  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:futapp/blocs/bloc/player_detail_bloc.dart';
 import 'package:futapp/blocs/player/player_bloc.dart';
 import 'package:futapp/repositories/player/player_repository.dart';
 import 'package:futapp/repositories/player/player_repository_impl.dart';
@@ -25,8 +26,8 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          PlayerBloc(playerRepository)..add(PlayerFetchDetail(widget.idPlayer)),
+      create: (context) => PlayerDetailBloc(playerRepository)
+        ..add(PlayerDetailFetchEvent(widget.idPlayer)),
       child: Scaffold(
         backgroundColor: Colors.black,
         body: _playerDetail(),
@@ -36,13 +37,13 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
 }
 
 Widget _playerDetail() {
-  return BlocBuilder<PlayerBloc, PlayerState>(
+  return BlocBuilder<PlayerDetailBloc, PlayerDetailState>(
     builder: (context, state) {
-      if (state is PlayerDetailFetchSucess) {
-        final player = state.player;
+      if (state is PlayerDetailFetchSuccess) {
+        final player = state.playerDetail;
         return PlayerDetailWidget(name: player.name!);
       } else if (state is PlayerFetchError) {
-        return Center(child: Text(state.message));
+        return Center(child: Text('ERRORS'));
       }
       return const Center(child: CircularProgressIndicator());
     },

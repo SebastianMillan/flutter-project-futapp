@@ -7,8 +7,3 @@ class PlayerFetchPopular extends PlayerEvent {
   final String players;
   PlayerFetchPopular(this.players);
 }
-
-class PlayerFetchDetail extends PlayerEvent {
-  final int id;
-  PlayerFetchDetail(this.id);
-}

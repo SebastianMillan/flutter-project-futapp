@@ -18,8 +18,3 @@ final class PlayerFetchError extends PlayerState {
   final String message;
   PlayerFetchError(this.message);
 }
-
-final class PlayerDetailFetchSucess extends PlayerState {
-  final Player player;
-  PlayerDetailFetchSucess(this.player);
-}
