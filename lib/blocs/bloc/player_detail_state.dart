@@ -8,7 +8,7 @@ final class PlayerDetailInitial extends PlayerDetailState {}
 final class PlayerDetailFetchLoading extends PlayerDetailState {}
 
 final class PlayerDetailFetchSuccess extends PlayerDetailState {
-  final Player playerDetail;
+  final PlayerResponse playerDetail;
   PlayerDetailFetchSuccess(this.playerDetail);
 }
 

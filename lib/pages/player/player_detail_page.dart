@@ -40,10 +40,12 @@ Widget _playerDetail() {
   return BlocBuilder<PlayerDetailBloc, PlayerDetailState>(
     builder: (context, state) {
       if (state is PlayerDetailFetchSuccess) {
-        final player = state.playerDetail;
-        return PlayerDetailWidget(name: player.name!);
+        final player = state.playerDetail.player;
+        return PlayerDetailWidget(
+          player: player!,
+        );
       } else if (state is PlayerFetchError) {
-        return Center(child: Text('ERRORS'));
+        return const Center(child: Text('ERRORS'));
       }
       return const Center(child: CircularProgressIndicator());
     },
