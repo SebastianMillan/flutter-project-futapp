@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:futapp/blocs/league/league_bloc.dart';
 import 'package:futapp/models/league_list_response/item.dart';
-import 'package:futapp/pages/team_page.dart';
+import 'package:futapp/pages/team/team_page.dart';
 import 'package:futapp/repositories/league_repository.dart';
 import 'package:futapp/repositories/league_repository_impl.dart';
 import 'package:shadow_overlay/shadow_overlay.dart';
