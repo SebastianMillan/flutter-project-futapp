@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:futapp/blocs/bloc/player_detail_bloc.dart';
 import 'package:futapp/blocs/player/player_bloc.dart';
+import 'package:futapp/blocs/player_detail/player_detail_bloc.dart';
 import 'package:futapp/repositories/player/player_repository.dart';
 import 'package:futapp/repositories/player/player_repository_impl.dart';
 import 'package:futapp/widgets/player_detail_widget.dart';

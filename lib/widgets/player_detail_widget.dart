@@ -1,11 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:futapp/models/player_list_response/player_list_response.dart';
+import 'package:futapp/widgets/modal_atributes.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:widget_zoom/widget_zoom.dart';
 
 class PlayerDetailWidget extends StatelessWidget {
   final Player player;
 
-  const PlayerDetailWidget({Key? key, required this.player}) : super(key: key);
+  PlayerDetailWidget({Key? key, required this.player}) : super(key: key);
+
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
+
+  static const CameraPosition cameraPosition = CameraPosition(
+    target: LatLng(39.46973029966386, -0.37550090754877496),
+    zoom: 15.9746,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +30,7 @@ class PlayerDetailWidget extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(
-                    width: 110,
+                    width: 180,
                     child: WidgetZoom(
                       heroAnimationTag: 'tag',
                       zoomWidget: Image.network(
@@ -43,14 +55,14 @@ class PlayerDetailWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Position: ${player.position!}',
+                      player.position!,
                       style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     const SizedBox(height: 8),
                     Row(
                       children: [
                         const Text(
-                          'Overall Rating:',
+                          'GRL',
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                         const SizedBox(width: 8),
@@ -62,56 +74,53 @@ class PlayerDetailWidget extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      'Height: ${player.height!} cm',
-                      style: const TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Weight: ${player.weight!} kg',
-                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Icon(Icons.height, color: Colors.white, size: 25),
+                        Text(
+                          '${player.height!} cm',
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
+                        ),
+                        const SizedBox(width: 3),
+                        const Icon(Icons.gpp_maybe,
+                            color: Colors.white, size: 25),
+                        Text(
+                          '${player.weight!} kg',
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Age: ${player.age!}',
                       style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Attributes:',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                     const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 16.0,
-                      runSpacing: 8.0,
+                    Column(
                       children: [
-                        _buildAttribute('Pace', player.pace!),
-                        _buildAttribute('Shooting', player.shooting!),
-                        _buildAttribute('Passing', player.passing!),
-                        _buildAttribute('Dribbling', player.dribbling!),
-                        _buildAttribute('Defending', player.defending!),
-                        _buildAttribute('Physicality', player.physicality!),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 10, 10, 10),
+                                  context: context,
+                                  builder: (context) =>
+                                      PlayerAttributesModal(player: player),
+                                );
+                              },
+                              child: const Text(
+                                'Show Attributes',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ],
@@ -120,21 +129,16 @@ class PlayerDetailWidget extends StatelessWidget {
             ],
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildAttribute(String label, int value) {
-    return Column(
-      children: [
-        Text(
-          label,
-          style: const TextStyle(color: Colors.white, fontSize: 16),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          '$value',
-          style: const TextStyle(color: Colors.white, fontSize: 16),
+        SizedBox(
+          width: double.infinity,
+          height: 200, // Set a specific height for the map
+          child: GoogleMap(
+            mapType: MapType.hybrid,
+            initialCameraPosition: cameraPosition,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+          ),
         ),
       ],
     );
