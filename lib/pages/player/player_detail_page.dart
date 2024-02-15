@@ -29,6 +29,10 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
       create: (context) => PlayerDetailBloc(playerRepository)
         ..add(PlayerDetailFetchEvent(widget.idPlayer)),
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          iconTheme: const IconThemeData(color: Colors.white),
+        ),
         backgroundColor: Colors.black,
         body: _playerDetail(),
       ),
