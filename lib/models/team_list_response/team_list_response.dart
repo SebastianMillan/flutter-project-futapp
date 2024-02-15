@@ -1,7 +1,5 @@
-import 'dart:convert';
-
-import 'item.dart';
-import 'pagination.dart';
+import 'package:futapp/models/league_list_response/pagination.dart';
+import 'package:futapp/models/team_list_response/item.dart';
 
 class TeamListResponse {
   Pagination? pagination;
@@ -9,31 +7,26 @@ class TeamListResponse {
 
   TeamListResponse({this.pagination, this.items});
 
-  factory TeamListResponse.fromMap(Map<String, dynamic> data) {
-    return TeamListResponse(
-      pagination: data['pagination'] == null
-          ? null
-          : Pagination.fromMap(data['pagination'] as Map<String, dynamic>),
-      items: (data['items'] as List<dynamic>?)
-          ?.map((e) => Team.fromMap(e as Map<String, dynamic>))
-          .toList(),
-    );
+  TeamListResponse.fromJson(Map<String, dynamic> json) {
+    pagination = json['pagination'] != null
+        ? new Pagination.fromJson(json['pagination'])
+        : null;
+    if (json['items'] != null) {
+      items = <Team>[];
+      json['items'].forEach((v) {
+        items!.add(new Team.fromJson(v));
+      });
+    }
   }
 
-  Map<String, dynamic> toMap() => {
-        'pagination': pagination?.toMap(),
-        'items': items?.map((e) => e.toMap()).toList(),
-      };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [TeamListResponse].
-  factory TeamListResponse.fromJson(String data) {
-    return TeamListResponse.fromMap(json.decode(data) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.pagination != null) {
+      data['pagination'] = this.pagination!.toJson();
+    }
+    if (this.items != null) {
+      data['items'] = this.items!.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
-
-  /// `dart:convert`
-  ///
-  /// Converts [TeamListResponse] to a JSON string.
-  String toJson() => json.encode(toMap());
 }
